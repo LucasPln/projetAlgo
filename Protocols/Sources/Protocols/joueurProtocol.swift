@@ -60,9 +60,6 @@ public protocol JoueurProtocol{
     // Place une carte ennemie dans le royaume
     mutating func capturer(Carte : Carte)
 
-    // afficherCiblesDisponible : Joueur -> String
-    // cette fonction retourne une chaine de caractère représentant le champ de bataille adverse (contant que les cartes attaquable) avec des numéros en dessous chaque case, ce qui va permettre à l'utilisateur de pouvoir voir quelle carte choisir
-    func afficherCiblesDisponible(joueur : Joueur)->String
 
     // ciblesDisponible : Joueur ->[Carte]
     // Calcul les cartes que le joueur peut attaquer
@@ -70,14 +67,6 @@ public protocol JoueurProtocol{
     // Retourne la liste des cartes disponible à l'attaque, carte qui seront rangées dans l'ordre correspondant à la fonction "afficherCibleDisponibles()"
     func ciblesDisponible(joueur : Joueur)->[Carte]
     
-
-
-
-    // afficherUnitePouvantAttaquer : Cartel ->String
-    // carte : la carte ciblée
-    // retourne une chaine de caractère représentant le champ de bataille du joueur courrant avec seulement les cartes alliées pouvant attaquer la carte placée en paramètre (celle visée)
-    func afficherUnitePouvantAttaquer(carte : Carte)->String
-
     // UnitePouvantAttaquer : Carte -> [Carte]
     // Calcul les cartes que le joueur peut utiliser pour attaquer une carte adversaire donnée en paramètre et les place dans un tableau
     // carte : la carte ciblée

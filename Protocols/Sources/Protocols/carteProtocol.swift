@@ -24,5 +24,9 @@ public protocol CarteProtocol{
 
     // recupererNomCarte : String
     // retourne en fonction de l'enum un string correspondant au nom de l'énum
-    mutating func recupererNomCarte()->String
+    func recupererNomCarte()->String
+
+    // recupererIdCarte : Id
+    // retourne l'id de la carte
+    func recupererIdCarte()->Int
 }

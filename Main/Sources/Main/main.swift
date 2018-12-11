@@ -2,7 +2,7 @@
 import Protocols
 
 
-
+//permet d'afficher le camp d'un joueur
 func afficherChampBataile(joueur: Joueur){
 var ligne : String
 print("**********************************************")
@@ -21,7 +21,7 @@ ligne = ""
 for(let i =3;i<6;++i){
 	
 	if(joueur.recupererChampDeBataille(joueur: joueur)[i] is Carte){
-		ligne += "-"+joueur.recupererChampDeBataille(joueur: joueur)[i].recupererNomCarte()+"-"
+		ligne += "-"+joueur.recupererChampDeBataille(joueur: joueur)[i].recupererNomCarte()+"(id:"+Joueur.main.recupererMain()[i].recupererIdCarte()+") -"
 	}else{
 		ligne += "-"+"          "+"-"
 	}		
@@ -31,13 +31,34 @@ print("********************************************")
 
 }
 
+
+//permet d'afficher la  main d'un joueur
 func afficherMain(joueur: Joueur){
 var ligne : String
 print("**********************************************")
 for(let i =0;i<Joueur.main.nbOccurences();++i){
 	
 	if(Joueur.main.RecupererMain()[i] is Carte){
-		ligne += ("-"+Joueur.main.RecupererMain()[i].recupererNomCarte()+"-")
+		ligne += ("-"+Joueur.main.recupererMain()[i].recupererNomCarte()+"(id:"+Joueur.main.recupererMain()[i].recupererIdCarte()+") -")
+	}else{
+		ligne += ("-"+"   "+"-")
+	}
+		
+}
+print(ligne)
+print("********************************************")
+
+}
+
+
+//correspond a afficher graphiquement une liste de carte
+func afficherUniter(unite: [Carte]){
+var ligne : String
+print("**********************************************")
+for(let i =0;i<unite.count;++i){
+	
+	if(unite[i] is Carte){
+		ligne += ("-"+unite[i].recupererNomCarte()+"(id:"+unite[i].recupererIdCarte()+") -")
 	}else{
 		ligne += ("-"+"   "+"-")
 	}
@@ -193,7 +214,7 @@ while(!partiFini){
 	 pouvantAttaquer = joueurActuel.UnitePouvantAttaquer()
          cible = joueurActuel.ciblesDisponible(joueur : joueurAdverse)
 			if(cible.count>0 || pouvantAttaquer){
-				print(cible)
+				print(afficherUnite(unite: cible))
 				print("Choisir une cible ou arreter l'attaque avec \"stop\"")
 				valide = false
 
@@ -223,8 +244,8 @@ while(!partiFini){
                         			unite = joueurActuel.unitePouvantAttaquer(carte : attaquer) //ne montrer que les soldats qui sont en mode defensif
 
 						if(unite.count>0){ // Si le joueur possède des cartes capable d'atteindre des cartes ennemis
-							print(unite)
-							print("Avec quelle carte voulez vous attaquer ? (tapez un numero) ou changer de cible ? (tapez \"changer\")")
+							print(afficherUnite(unite: unite))
+							print("Avec quelle carte voulez vous attaquer ? (tapez la position du soldat dans la liste (commence par 0) ou changer de cible ? (tapez \"changer\")")
 
 							while(!valide){
 								if let typed = readLine(){

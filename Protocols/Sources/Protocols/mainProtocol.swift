@@ -32,12 +32,12 @@ public protocol MainProtocol : Sequence {
   // note : la liste de carte ne doit pas être vide pour permettre la suppression d'une carte
   mutating func enleverCarte(carte : Carte)
 
-  // RecupererMain -> [Carte]?
+  // recupererMain -> [Carte]?
   // retourne : une chaine de caractère correspondant au carte
   // pre : la main ne doit pas être vide
   // fonction retournant un string correspondant au nom des cartes (avec numéro pour selection via input) présentes dans la main
   // note : faire en sorte de permettre au joueur de choisir parmis les cartes en rendant l'affichage le plus intuitif et visible possible
-  func RecupererMain()->[Carte]?
+  func recupererMain()->[Carte]?
 
   // nombreOccurence -> Int
   // permet de calculer le nombre de carte présent dans la main d'un joueur
