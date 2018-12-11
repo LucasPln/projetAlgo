@@ -19,7 +19,7 @@ var joueurGagnant : JoueurProtocol
 var partiFini = false
 
 print("Joueur 1 : veuillez selectionner (un numero) une carte à mettre au royaume")
-print(joueur1.afficherMain())
+print(joueur1.main.afficherMain())
 var input : Int
 var isInt = false
 while(!isInt){
@@ -36,7 +36,7 @@ while(!isInt){
 joueur1.demobiliser(carte : joueur1.recupererCarte(position : input))
 
 print("mettre un carte au front")
-print(joueur1.afficherMain())
+print(joueur1.main.afficherMain())
 isInt = false
 while(!isInt){
 	if let typed = readLine(){
@@ -48,7 +48,7 @@ while(!isInt){
 		}
 	}
 }
-joueur1.deployer(carte : joueur1.main.recupererCarte(position : input))
+joueur1.deployerCarte(carte : joueur1.main.recupererCarte(position : input))
 
 print("Joueur 2 : veuillez selectionner (un numero) une carte à mettre au royaume")
 print(joueur2.main.afficherMain())
@@ -79,7 +79,7 @@ while(!isInt){
 		}
 	}
 }
-joueur2.deployer(joueur2.main.recupererCarte(position : input))
+joueur2.deployerCarte(joueur2.main.recupererCarte(position : input))
 
 /* Boucle principale du jeu */
 var tour=1
@@ -92,8 +92,8 @@ while(!partiFini){
 		print("à toi de jouer joueur 2 !")
 
 	} else {
-		var joueurActuel : JoueurProtocol = joueur1
-		var joueurAdverse : JoueurProtocol = joueur2
+		joueurActuel = joueur1
+		joueurAdverse = joueur2
 		print("à toi de joueur joueur 1 !")
 	}
 
@@ -108,7 +108,7 @@ while(!partiFini){
 		joueurActuel.piocher()
 
 	/* Si les deux joueurs n'ont plus de carte dans leur pioche, on regarde qui à le plus de carte dans son royaume pour désigner le gagnant*/
-	} else if (joueurAdverse.pioche.nombreOccurence()<0){
+	} else if (joueurAdverse.pioche.nombreOccurence() == 0){
 		if(joueurActuel.royaume.nombreOccurence()>joueurAdverse.royaume.nombreOccurence()){
 			joueurGagnant = joueurActuel
 

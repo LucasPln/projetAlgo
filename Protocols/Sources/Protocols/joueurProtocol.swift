@@ -29,6 +29,7 @@ public protocol JoueurProtocol{
     // deployerCarte : Carte
     // Demande la position sur laquelle le joueur veut déployer la carte sur le champ de bataille
     // pre : La main ne doit pas être vide
+    // post : La carte est supprimé de la main
     mutating func deployerCarte(carte : Carte)
 
     // avancerCarte : Carte
