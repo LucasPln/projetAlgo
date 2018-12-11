@@ -11,11 +11,11 @@ public protocol MainProtocol : Sequence {
   init()
 
   // recupererCarte: Int -> Carte
-  // position : position de la carte dans la main
+  // type : recuperer un type de carte
   // permet de récuperer la n-ième carte d'une main
   // cette fonction retourne une carte
   // post : une carte est retourné
-  func recupererCarte(position : Int)->Carte
+  func recupererCarte(type : uniteCarte)->Carte
 
   // ajouterCarte : Carte
   // permet d'ajouter une carte dans la main d'un joueur
@@ -32,12 +32,12 @@ public protocol MainProtocol : Sequence {
   // note : la liste de carte ne doit pas être vide pour permettre la suppression d'une carte
   mutating func enleverCarte(carte : Carte)
 
-  // afficherMain -> String
+  // RecupererMain -> [Carte]?
   // retourne : une chaine de caractère correspondant au carte
   // pre : la main ne doit pas être vide
   // fonction retournant un string correspondant au nom des cartes (avec numéro pour selection via input) présentes dans la main
   // note : faire en sorte de permettre au joueur de choisir parmis les cartes en rendant l'affichage le plus intuitif et visible possible
-  func afficherMain()->String
+  func RecupererMain()->[Carte]?
 
   // nombreOccurence -> Int
   // permet de calculer le nombre de carte présent dans la main d'un joueur

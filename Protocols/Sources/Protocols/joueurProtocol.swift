@@ -29,8 +29,14 @@ public protocol JoueurProtocol{
     // deployerCarte : Carte
     // Demande la position sur laquelle le joueur veut déployer la carte sur le champ de bataille
     // pre : La main ne doit pas être vide
+    // pre : X et Y sont les coordonnées souhaité par l'utilisateur, il ne doit pas y avoir de carte dans cette coordonnée et doit pointer sur le champ de bataille (pas en dehors)
     // post : La carte est supprimé de la main
-    mutating func deployerCarte(carte : Carte)
+    mutating func deployerCarte(carte : Carte, x: Int, y: Int)
+
+    // recupererChampDeBataille : [Carte?]
+    // un joueur est placé en paramètre, cella permet de récuperer son camp de champ de bataille
+    // renvoie le champ de bataille
+    func recupererChampDeBataille(joueur: Joueur)->[Carte?] //carte ou vide
 
     // avancerCarte : Carte
     // Avance une carte positionnée en arrière sur le front correspondant
@@ -65,10 +71,7 @@ public protocol JoueurProtocol{
     func ciblesDisponible(joueur : Joueur)->[Carte]
     
 
-    // afficherChampDeBattaille: Joueur -> String
-    // cette fonction retourne un string représentant le champ de bataille adverse ainsi que du joueur courrant (il faut gerer le fait que le champ de bataille adverse soit inversé par rapport au joueur courrant
-    // joueurAdverse : joueur adverse
-    func afficherChampDeBataille(joueurAdverse : Joueur)->String
+
 
     // afficherUnitePouvantAttaquer : Cartel ->String
     // carte : la carte ciblée

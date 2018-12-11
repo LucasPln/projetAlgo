@@ -1,5 +1,81 @@
 /* ------- Programme Main ------- */
 import Protocols
+
+
+
+func afficherChampBataile(joueur: Joueur){
+var ligne : String
+print("**********************************************")
+for(let i =0;i<3;++i){
+	
+	if(joueur.recupererChampDeBataille(joueur: joueur)[i] is Carte){
+		ligne += "-"+joueur.recupererChampDeBataille(joueur: joueur)[i].recupererNomCarte()+"-"
+	}else{
+		ligne += "-"+"          "+"-"
+	}
+		
+}
+print(ligne)
+ligne = ""
+//deuxième ligne
+for(let i =3;i<6;++i){
+	
+	if(joueur.recupererChampDeBataille(joueur: joueur)[i] is Carte){
+		ligne += "-"+joueur.recupererChampDeBataille(joueur: joueur)[i].recupererNomCarte()+"-"
+	}else{
+		ligne += "-"+"          "+"-"
+	}		
+}
+print(ligne)
+print("********************************************")
+
+}
+
+func afficherMain(joueur: Joueur){
+var ligne : String
+print("**********************************************")
+for(let i =0;i<Joueur.main.nbOccurences();++i){
+	
+	if(Joueur.main.RecupererMain()[i] is Carte){
+		ligne += ("-"+Joueur.main.RecupererMain()[i].recupererNomCarte()+"-")
+	}else{
+		ligne += ("-"+"   "+"-")
+	}
+		
+}
+print(ligne)
+print("********************************************")
+
+}
+
+
+func choisirTypeCarte()->uniteCarte{
+print("choisissez entre : 1- 2- 3-")
+var input : Int
+var isInt = false
+while(!isInt){
+	if let typed = readLine(){
+		if let n = Int(typed){
+			input = n
+			isInt = true
+
+		} else {
+			print("veuillez choisir un nombre")
+		}
+	}
+}
+var type : UniteCarte;
+if(input=="Soldat"){
+	type= UniteCarte.Soldat
+}
+else if(input=="Archer"){
+	type= UniteCarte.Archer
+
+else if(input=="Garde"){
+	type= UniteCarte.Garde
+}
+return type
+}
 /* Initialisation de la partie */
 print("Joueur 1 : Veuillez saisir un nom pour votre joueur : ")
 var choix : String
@@ -18,73 +94,41 @@ var joueur2 = JoueurProtocol(nom : choix)
 var joueurGagnant : JoueurProtocol
 var partiFini = false
 
-print("Joueur 1 : veuillez selectionner (un numero) une carte à mettre au royaume")
-print(joueur1.main.afficherMain())
-var input : Int
-var isInt = false
-while(!isInt){
-	if let typed = readLine(){
-		if let n = Int(typed){
-			input = n
-			isInt = true
+print("Joueur 1 : veuillez selectionner une carte à mettre au royaume")
+print(afficherMain(joueur : joueur1))
 
-		} else {
-			print("veuillez choisir un nombre")
-		}
-	}
-}
-joueur1.demobiliser(carte : joueur1.recupererCarte(position : input))
+joueur1.demobiliser(carte : joueur1.main.recupererCarte(type : choisirTypeCarte()))
 
 print("mettre un carte au front")
-print(joueur1.main.afficherMain())
-isInt = false
-while(!isInt){
-	if let typed = readLine(){
-		if let n = Int(typed){
-			input = n
-			isInt = true
-		}else{
-			print("veuillez choisir un nombre")
-		}
-	}
-}
-joueur1.deployerCarte(carte : joueur1.main.recupererCarte(position : input))
+print(afficherMain(joueur : joueur1))
+
+
+joueur1.deployerCarte(carte : joueur1.main.recupererCarte(type : choisirTypeCarte()),x:, y: )
 
 print("Joueur 2 : veuillez selectionner (un numero) une carte à mettre au royaume")
-print(joueur2.main.afficherMain())
-isInt = false
-while(!isInt){
-	if let typed = readLine(){
-		if let n = Int(typed){
-			input = n
-			isInt = true
-		} else {
-			print("veuillez choisir un nombre")
-		}
-	}
-}
-joueur2.demobiliser(carte: joueur2.main.recupererCarte(position : input))
+print(afficherMain(joueur : joueur2))
+
+joueur2.demobiliser(carte: joueur2.main.recupererCarte(type : choisirTypeCarte()))
 
 print("mettre un carte au front")
-print(joueur2.main.afficherMain())
-isInt = false
-while(!isInt){
-	if let typed = readLine(){
-		if let n = Int(typed){
-			input = n
-			isInt = true
+print(afficherMain(joueur : joueur2))
 
-		} else {
-			print("veuillez choisir un nombre")
-		}
-	}
-}
-joueur2.deployerCarte(joueur2.main.recupererCarte(position : input))
+joueur2.deployerCarte(joueur2.main.recupererCarte(type : choisirTypeCarte()),x:, y: )
 
 /* Boucle principale du jeu */
 var tour=1
 var joueurActuel : JoueurProtocol
 var joueurAdverse : JoueurProtocol
+var changerCible = false
+var cible : Carte
+var cibleMorte = false
+var valide = false
+var unite : [Carte]
+var pouvantAttaquer : [Carte]
+var attaquer : Carte //carte qui est attaqué
+var attaquant : Carte //Carte attaquante
+var attaque : false //permettant de lancer une attaque
+
 while(!partiFini){
 	if(tour%2 == 0){
 		joueurActuel = joueur2 //attention le joueur doit être de type réference et non pas de type valeur !!!
@@ -98,7 +142,7 @@ while(!partiFini){
 	}
 
 	/* Mise en position défensive de toutes les cartes du champ de bataille du joueur */
-	for carte in joueurActuel.champDeBataille{
+	for carte in joueurActuel.recupererChampDeBataille(joueurActuel){
 		if carte is Carte{
             carte.changerEtat(etat: etatCarte.defensif)
 		}
@@ -120,9 +164,10 @@ while(!partiFini){
 		break
 		
 	}
-
-	print(joueurActuel.afficherChampDeBataille(joueurAdverse : joueurAdverse))
-	print(joueurActuel.main.afficherMain())
+	print("champ de bataille adverse : ")
+	print(afficherChampBataile(joueur: joueurAdverse))
+	print("votre main : ")
+	print(afficherMain(joueur : joueurActuel))
 
 	//phase action
 	if let typed = readLine(){
@@ -136,22 +181,21 @@ while(!partiFini){
 			choix = typed
 		}
 	}
-
 	/* Choix de ne rien faire */
 	if(choix == "rien"){
 		print("vous decidez de passer votre tour")
 
 	/* Choix d'attaquer l'adversaire */
 	} else if (choix == "attaquer"){
-		var attaque = true
-		var attaquer : CarteProtocol
+		attaque = true
+		attaquer : CarteProtocol
 		while(attaque){
-	var pouvantAttaquer = joueurActuel.peutAttaquer()
-         var cible = joueurActuel.ciblesDisponible(joueur : joueurAdverse)
+	 pouvantAttaquer = joueurActuel.UnitePouvantAttaquer()
+         cible = joueurActuel.ciblesDisponible(joueur : joueurAdverse)
 			if(cible.count>0 || pouvantAttaquer){
-				print(joueurActuel.afficherCiblesDisponible(joueur : joueurAdverse))
+				print(cible)
 				print("Choisir une cible ou arreter l'attaque avec \"stop\"")
-				var valide = false
+				valide = false
 
 				while(!valide){
 					if let typed = readLine(){
@@ -172,14 +216,14 @@ while(!partiFini){
 				}
 
 				if(attaque==true){
-					var changerCible = false
-					var cibleMorte = false
-
+					changerCible = false
+					cibleMorte = false
+					unite : [Carte]
 					while(changerCible == false || cibleMorte == false){
-                        			var unite = joueurActuel.unitePouvantAttaquer(carte : attaquer) //ne montrer que les soldats qui sont en mode defensif
+                        			unite = joueurActuel.unitePouvantAttaquer(carte : attaquer) //ne montrer que les soldats qui sont en mode defensif
 
 						if(unite.count>0){ // Si le joueur possède des cartes capable d'atteindre des cartes ennemis
-							print(joueurActuel.afficherUnitePouvantAttaquer(carte : attaquer))
+							print(unite)
 							print("Avec quelle carte voulez vous attaquer ? (tapez un numero) ou changer de cible ? (tapez \"changer\")")
 
 							while(!valide){
@@ -187,7 +231,7 @@ while(!partiFini){
 									if let n = Int(typed){
 										input = n
 										valide = true
-										var attaquant = unite[input] //selection d'un attaquant
+										attaquant = unite[input] //selection d'un attaquant
                                         if(joueurActuel.attaquer(carteAttaquante: attaquant,carteAttaque: attaquer)){
 											print("La carte attaquée est tombé au combat !")
 											cibleMorte = true
@@ -207,22 +251,10 @@ while(!partiFini){
                                                     joueurAdverse.deployerCarte(carte : joueurAdverse.royaume.enleverCarte())
 
 	                                                } else {
-	                                                	print(joueurActuel.main.afficherMain())
+	                                                    print(afficherMain(joueur : joueurActuel))
 	                                                    print(joueurAdverse.nom+" veuillez choisir une carte à deployer")
-	                                                    var isInt = false
-
-	                                                    while(!isInt){
-	                                                        if let typed = readLine(){
-	                                                            if let n = Int(typed){
-	                                                                input = n
-	                                                                isInt = true
-
-	                                                            } else {
-	                                                                print(joueurAdverse.nom+" veuillez choisir un nombre")
-	                                                            }
-	                                                        }
-	                                                    }
-	                                                    joueurAdverse.deployerCarte(carte : joueurAdverse.main.recupererCarte(position: input))
+	                                                    
+	                                                    joueurAdverse.deployerCarte(carte : joueurAdverse.main.recupererCarte(type: choisirTypeCarte()),x:, y: )
 	                                                    print("carte deployé !")
 	                                                   
 	                                                }
@@ -257,21 +289,7 @@ while(!partiFini){
 	/* Choix de déployer une carte sur le champ de bataille */
 	} else if(choix == "deployer"){
 		print("veuillez choisir une carte à deployer")
-		var isInt = false
-
-		while(!isInt){
-			if let typed = readLine(){
-				if let n = Int(typed){
-					input = n
-					isInt = true
-
-				} else {
-					print("veuillez choisir un nombre")
-				}
-			}
-		}
-
-		joueurActuel.deployerCarte(carte : joueurActuel.main.recupererCarte(position: input))
+		joueurActuel.deployerCarte(carte : joueurActuel.main.recupererCarte(position: choisirTypeCarte()),x:, y: )
 		print("carte deployé !")
 	}
 	tour = tour+1

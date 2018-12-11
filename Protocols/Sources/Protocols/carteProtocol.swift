@@ -21,4 +21,8 @@ public protocol CarteProtocol{
     // etat : l'état de la carte
     // Permet le changement d'état d'une carte (de defensif à offensif et inversement)
     mutating func changerEtat(etat : etatCarte)
+
+    // recupererNomCarte : String
+    // retourne en fonction de l'enum un string correspondant au nom de l'énum
+    mutating func recupererNomCarte()->String
 }
