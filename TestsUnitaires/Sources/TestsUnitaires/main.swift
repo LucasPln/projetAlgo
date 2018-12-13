@@ -55,21 +55,21 @@ if(main.nbOccurence() != 1){ //il ne devrait rester que le roi !
 }
 //coordonnée
     do {
-        var coord = try CoordonneesProtocol(x: 0,y: 0)
+        var coord = try PorteeProtocol(x: 0,y: 0)
         erreur = erreur+1
         print("il y a un soucis dans les coordonnées, on ne peut pas avoir comme coordonnée d'attaque 'sois-même'")
     } catch {
         print("test passé")
     }
     do {
-        var coord = try CoordonneesProtocol(x: 1,y: 1)
+        var coord = try PorteeProtocol(x: 1,y: 1)
         print("test passé")
     } catch {
         erreur = erreur+1
         print("il y a un soucis dans les coordonnées, on a pas pu initiliser les coordonnées")
     }
     do {
-        var coord = try CoordonneesProtocol(x: 3,y: 4)
+        var coord = try PorteeProtocol(x: 3,y: 4)
         erreur = erreur+1
         print("il y a un soucis dans les coordonnées, on ne peut avoir des coordonnées relatives supérieur à la taille du terrain")
     } catch {
@@ -85,7 +85,7 @@ if(cimetiere.nombreOccurence() > 42){//nombre de carte maximum dans une partie (
 	erreur = erreur+1
 	print("il y a plus de carte dans le cimetière que de carte disponible dans la partie !")
 }
-var testCarte = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [CoordonneesProtocol(x:0,y:0)])
+var testCarte = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [PorteeProtocol(x:0,y:0)])
 cimetiere.ajouterCarte(carte : testCarte)
 if(cimetiere.nombreOccurence() != 1){
 	erreur = erreur+1
@@ -97,7 +97,7 @@ if(royaume.nombreOccurence() != 0){
     erreur = erreur+1
     print("erreur lors de la création d'un royaume")
 }
-var testCarte = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [CoordonneesProtocol(x:0,y:0)])
+var testCarte = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [PorteeProtocol(x:0,y:0)])
 royaume.ajouterCarte(carte: testCarte)
 if(royaume.nombreOccurence() != 1){
     erreur = erreur+1
@@ -111,7 +111,7 @@ if(royaume.nombreOccurence() != 0){
 
 
 
-var carteTest = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [CoordonneesProtocol(x:0,y:0)])
+var carteTest = CarteProtocol(id : 1, attaque : 1, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [PorteeProtocol(x:0,y:0)])
 
 /* Test init() */
 var joueurTest = JoueurProtocol()
@@ -172,8 +172,8 @@ if(nbCartePiocheAvantPioche - nbCartePiocheApresPioche == 1 && nbCarteMainApresP
 
 /* Test attaquer()  */
 
-var carteTestAlliee = CarteProtocol(id : 11, attaque : 5, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [CoordonneesProtocol(x:0,y:0)])
-var carteTestEnnemis = CarteProtocol(id : 10, attaque : 1, defDefensive : 2, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [CoordonneesProtocol(x:0,y:0)])
+var carteTestAlliee = CarteProtocol(id : 11, attaque : 5, defDefensive : 1, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [PorteeProtocol(x:0,y:0)])
+var carteTestEnnemis = CarteProtocol(id : 10, attaque : 1, defDefensive : 2, defOffensive : 1, etat : etatCarte.Defensif, unite : uniteCarte.Garde, portee : [PorteeProtocol(x:0,y:0)])
 
 if(joueurTest.attaquer(carteAttaquante : carteTestAlliee, carteAttaque : carteTestEnnemis)){
     print("Execution attaquer : OK")
@@ -199,5 +199,3 @@ var stringResulat = String(resultat)
 
 
 print("il y a "+stringResulat+" erreur(s)")
-
-

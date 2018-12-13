@@ -1,5 +1,5 @@
 import Foundation
-// Type ChampDeBataille est une collection de cartes avec leur position sur le champ de bataille
+// Type ChampDeBataille est une collection de positions contenant des cartes
 //(0,0) correspond à F1
 public protocol ChampDeBatailleProtocol : Sequence {
   associatedtype Carte: CarteProtocol
