@@ -315,7 +315,7 @@ while(!partiFini){
 		print("veuillez choisir une carte à deployer")
 		choisirCoordonneeXY(JoueurSelectionner: joueurActuel,X : X, Y : Y)
 		joueurActuel.deployerCarte(carte : joueurActuel.main.recupererCarte(position: choisirTypeCarte()),x: X, y: Y)
-		print("carte deployé !")
+		print("carte deployée !")
 	}
 	tour = tour+1
 }
