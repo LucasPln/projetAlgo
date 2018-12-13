@@ -264,7 +264,7 @@ while(!partiFini){
                                                 partiFini = true
                                                 break
 
-                                            } else if (joueurAdverse.champDeBatailleEstVide()){ // Si le joueur adverse n'a plus d'unite sur son champ de bataille
+                                            } else if (joueurAdverse.recupererChampDeBataille().champDeBatailleEstVide()){ // Si le joueur adverse n'a plus d'unite sur son champ de bataille
                                                 if(joueurAdverse.royaume.nombreOccurence() + joueurAdverse.main.nombreOccurence() < 1){ // Si il n'a plus de carte dans le royaume ni dans la main : effondrement
                                                     joueurGagnant = joueurActuel
                                                     partiFini = true
@@ -272,15 +272,14 @@ while(!partiFini){
 
                                                 } else { // Si il lui reste au moins une carte dans la main ou dans le royaume : conscription
                                                 	if(!joueurAdverse.royaume.estVide()){
-														print(joueurAdverse.nom+" vous êtes forcé à déployé une carte venant de votre royaume, veuillez choisir les coordonnées de deploiement")
-
-														choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
-														joueurAdverse.deployerCarte(carte : joueurAdverse.royaume.enleverCarte(),x : X,y : Y)
+																										print(joueurAdverse.nom+" vous êtes forcé à déployé une carte venant de votre royaume, veuillez choisir les coordonnées de deploiement")
+																										choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
+																										joueurAdverse.deployerCarte(carte : joueurAdverse.royaume.enleverCarte(),x : X,y : Y)
 
 	                                                } else {
 	                                                  	afficherMain(joueur : joueurActuel)
 	                                                  	print(joueurAdverse.nom+" veuillez choisir une carte à deployer")
-														choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
+																											choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
 	                                                  	joueurAdverse.deployerCarte(carte : joueurAdverse.main.recupererCarte(type: choisirTypeCarte()),x: X, y: Y)
 	                                                  	print("carte deployé !")
 
@@ -292,7 +291,6 @@ while(!partiFini){
 										valide = true
 										print("vous avez choisi de changer de cible")
 										changerCible = true
-
 									} else {
 										print("veuillez choisir une réponse valide")
 									}
