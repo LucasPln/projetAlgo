@@ -7,7 +7,7 @@ func afficherChampBataile(joueur: Joueur){
 	var champ = joueur.recupererChampDeBataille()
 
 	while let element = champ.next(){
-		print("carte :"+element.retournerCarte().recupererNomCarte()+"->["+element.positionX()+";"+element.positionY()+"]")
+		print("carte :"+element.retournerCarte().recupererUnite()+"->["+element.positionX()+";"+element.positionY()+"]")
 	}
 }
 
@@ -20,7 +20,7 @@ func afficherMain(joueur: Joueur){
 	for i in 0...Joueur.main.nbOccurences()-1{
 
 		if(Joueur.main.RecupererMain()[i] is Carte){
-			ligne += ("-"+Joueur.main.recupererMain()[i].recupererNomCarte()+"(id:"+Joueur.main.recupererMain()[i].recupererIdCarte()+") -")
+			ligne += ("-"+Joueur.main.recupererMain()[i].recupererUnite()+"(id:"+Joueur.main.recupererMain()[i].recupererIdCarte()+") -")
 		}
 
 	}
@@ -38,7 +38,7 @@ func afficherUnites(unite: [Carte]){
 	for(let i =0;i<unite.count;++i){
 
 		if(unite[i] is Carte){
-			ligne += ("-"+unite[i].recupererNomCarte()+"(id:"+unite[i].recupererIdCarte()+") -")
+			ligne += ("-"+unite[i].recupererUnite()+"(id:"+unite[i].recupererIdCarte()+") -")
 		}else{
 			ligne += ("-"+"   "+"-")
 		}
