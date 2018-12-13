@@ -4,8 +4,37 @@ import Protocols
 
 func testUnitaire()->Int{
 var erreur = 0;
+
+
+
+//Coordonnees
+var coor : CoordonneeProtocol(x: 1,y :1)
+if(coor.positionX != 1){
+	erreur=erreur+1
+}
+if(coor.positionY !=1){
+	erreur=erreur+1
+}
+var testCartecoordonnee = CarteProtocol(id : 2,defDefensive : 2,defOffensive : 2,etat : etatCarte.Defensif,unite : uniteCarte.Roi)
+coor.lierCarte(carte : testCartecoordonnee)
+if(coor.retournerCarte != testCartecoordonnee){
+	erreur=erreur+1
+}
+//Champ de champDeBataille
+
+var ChampDeBataille : ChampBatailleProtocol
+if(!champDeBataille.champDeBatailleEstVide()){
+	erreur=erreur+1
+}
 //carte
+
 var carte = CarteProtocol(id : 2,defDefensive : 2,defOffensive : 2,etat : etatCarte.Defensif,unite : uniteCarte.Roi)
+if(carte.recupererIdCarte()->Int != 2){
+	erreur=erreur+1
+}
+if(carte.recupererUnite() != "Roi"){
+	erreur=erreur+1
+}
 carte.changerEtat(etatCarte.Offensif)
 if(carte.etat != etatCarte.Offensif){
 	erreur = erreur+1
