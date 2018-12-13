@@ -23,6 +23,11 @@ public protocol CarteProtocol{
     mutating func changerEtat(etat : etatCarte)
 
 
+    //recupererUnite : -> UniteCarte
+    //retourne l'unité de la carte
+    func recupererUnite()->uniteCarte
+
+
     // recupererIdCarte : Id
     // retourne l'id de la carte
     func recupererIdCarte()->Int
