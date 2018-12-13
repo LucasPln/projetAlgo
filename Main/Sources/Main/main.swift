@@ -1,7 +1,7 @@
 /* ------- Programme Main ------- */
 import Protocols
 
-
+//afficherChampBataile : Joueur
 //permet d'afficher le camp d'un joueur
 func afficherChampBataile(joueur: Joueur){
 	var champ = joueur.recupererChampDeBataille()
@@ -12,7 +12,7 @@ func afficherChampBataile(joueur: Joueur){
 }
 
 
-
+//afficherMain : Joueur
 //permet d'afficher la  main d'un joueur
 func afficherMain(joueur: Joueur){
 	var ligne = ""
@@ -30,6 +30,7 @@ func afficherMain(joueur: Joueur){
 }
 
 
+//afficherUnites: [Carte]
 //correspond a afficher graphiquement une liste de carte
 func afficherUnites(unite: [Carte]){
 	var ligne : String
@@ -94,7 +95,6 @@ func choisirTypeCarte()->uniteCarte{
 	}
 	return type
 }
-
 
 /* Initialisation de la partie */
 print("Joueur 1 : Veuillez saisir un nom pour votre joueur : ")
@@ -216,7 +216,7 @@ while(!partiFini){
 		attaquer : CarteProtocol
 		while(attaque){
 	 		pouvantAttaquer = joueurActuel.UnitePouvantAttaquer()
-      		cibleDisponible = joueurActuel.ciblesDisponible(joueur : joueurAdverse)
+      cibleDisponible = joueurActuel.ciblesDisponible(joueur : joueurAdverse)
 			if(cibleDisponible.count>0 || pouvantAttaquer){
 				afficherUnites(unite: cibleDisponible)
 				print("Choisir une cible ou arreter l'attaque avec \"stop\"")
@@ -244,7 +244,7 @@ while(!partiFini){
 					changerCible = false
 					cibleMorte = false
 					while(changerCible == false || cibleMorte == false){
-              			unite = joueurActuel.unitePouvantAttaquer(carte : attaquer) //ne montrer que les soldats qui sont en mode defensif
+            unite = joueurActuel.unitePouvantAttaquer(carte : attaquer) //ne montrer que les soldats qui sont en mode defensif
 
 						if(unite.count>0){ // Si le joueur possède des cartes capable d'atteindre des cartes ennemis
 							print(afficherUnites(unite: unite))
@@ -256,36 +256,36 @@ while(!partiFini){
 										input = n
 										valide = true
 										attaquant = unite[input] //selection d'un attaquant
-                    					if(joueurActuel.attaquer(carteAttaquante: attaquant,carteAttaque: attaquer)){
+                    if(joueurActuel.attaquer(carteAttaquante: attaquant,carteAttaque: attaquer)){
 											print("La carte attaquée est tombé au combat !")
 											cibleMorte = true
-                                            if(attaquer.unite == uniteCarte.Roi){
-                                                joueurGagnant = joueurActuel
-                                                partiFini = true
-                                                break
+                      if(attaquer.unite == uniteCarte.Roi){
+                        joueurGagnant = joueurActuel
+                        partiFini = true
+                        break
 
-                                            } else if (joueurAdverse.recupererChampDeBataille().champDeBatailleEstVide()){ // Si le joueur adverse n'a plus d'unite sur son champ de bataille
-                                                if(joueurAdverse.royaume.nombreOccurence() + joueurAdverse.main.nombreOccurence() < 1){ // Si il n'a plus de carte dans le royaume ni dans la main : effondrement
-                                                    joueurGagnant = joueurActuel
-                                                    partiFini = true
-                                                    break
+	                    } else if (joueurAdverse.recupererChampDeBataille().champDeBatailleEstVide()){ // Si le joueur adverse n'a plus d'unite sur son champ de bataille
+	                        if(joueurAdverse.royaume.nombreOccurence() + joueurAdverse.main.nombreOccurence() < 1){ // Si il n'a plus de carte dans le royaume ni dans la main : effondrement
+	                            joueurGagnant = joueurActuel
+	                            partiFini = true
+	                            break
 
-                                                } else { // Si il lui reste au moins une carte dans la main ou dans le royaume : conscription
-                                                	if(!joueurAdverse.royaume.estVide()){
-																										print(joueurAdverse.nom+" vous êtes forcé à déployé une carte venant de votre royaume, veuillez choisir les coordonnées de deploiement")
-																										choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
-																										joueurAdverse.deployerCarte(carte : joueurAdverse.royaume.enleverCarte(),x : X,y : Y)
+	                        } else { // Si il lui reste au moins une carte dans la main ou dans le royaume : conscription
+	                        	if(!joueurAdverse.royaume.estVide()){
+															print(joueurAdverse.nom+" vous êtes forcé à déployé une carte venant de votre royaume, veuillez choisir les coordonnées de deploiement")
+															choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
+															joueurAdverse.deployerCarte(carte : joueurAdverse.royaume.enleverCarte(),x : X,y : Y)
 
-	                                                } else {
-	                                                  	afficherMain(joueur : joueurActuel)
-	                                                  	print(joueurAdverse.nom+" veuillez choisir une carte à deployer")
-																											choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
-	                                                  	joueurAdverse.deployerCarte(carte : joueurAdverse.main.recupererCarte(type: choisirTypeCarte()),x: X, y: Y)
-	                                                  	print("carte deployé !")
+	                          } else {
+	                            	afficherMain(joueur : joueurActuel)
+	                            	print(joueurAdverse.nom+" veuillez choisir une carte à deployer")
+																choisirCoordonneeXY(JoueurSelectionner: joueurAdverse,X : X, Y : Y)
+	                            	joueurAdverse.deployerCarte(carte : joueurAdverse.main.recupererCarte(type: choisirTypeCarte()),x: X, y: Y)
+	                            	print("carte deployé !")
 
-	                                                }
-                                                }
-                                            }
+	                          }
+	                        }
+                    	}
 										}
 									} else if(typed == "changer"){
 										valide = true
