@@ -5,8 +5,6 @@ public protocol CimetiereProtocol : Sequence {
   associatedtype CimetiereIteratorProtocol : IteratorProtocol
   where CimetiereIteratorProtocol.Element == CarteProtocol
 
-  // il s'agit de la liste des cartes du cimetière
-  var liste : Carte {get set}
 
   // ajouterCarte : Carte
   // carte : la carte à ajouter sur dans le cimetière

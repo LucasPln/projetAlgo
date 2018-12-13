@@ -1,6 +1,7 @@
 //Type Joueur contenant une liste représentant son champ de bataille et d'autres élements utile pour une partie
 public protocol JoueurProtocol{
     associatedtype Carte: CarteProtocol
+    associatedtype ChampDeBataille: ChampDeBatailleProtocol
     associatedtype Joueur: CarteProtocol
     //permet de récuperer le nom du joueur
     var nom : String {get set}
@@ -27,16 +28,15 @@ public protocol JoueurProtocol{
     func compterCarteChampDeBataille()->Int
 
     // deployerCarte : Carte
-    // Demande la position sur laquelle le joueur veut déployer la carte sur le champ de bataille
     // pre : La main ne doit pas être vide
-    // pre : X et Y sont les coordonnées souhaité par l'utilisateur, il ne doit pas y avoir de carte dans cette coordonnée et doit pointer sur le champ de bataille (pas en dehors)
+    // pre : X et Y sont les coordonnées sur laquelle la carte va être placé, il ne doit pas y avoir de carte sur ces coordonnées et doit pointer sur le champ de bataille (pas en dehors)
     // post : La carte est supprimé de la main
     mutating func deployerCarte(carte : Carte, x: Int, y: Int)
 
-    // recupererChampDeBataille : [Carte?]
+    // recupererChampDeBataille : -> ChampDeBataille
     // un joueur est placé en paramètre, cella permet de récuperer son camp de champ de bataille
     // renvoie le champ de bataille
-    func recupererChampDeBataille(joueur: Joueur)->[Carte?] //carte ou vide
+    func recupererChampDeBataille()->ChampDeBataille
 
     // avancerCarte : Carte
     // Avance une carte positionnée en arrière sur le front correspondant
@@ -66,7 +66,7 @@ public protocol JoueurProtocol{
     // joueur : joueur adverse
     // Retourne la liste des cartes disponible à l'attaque, carte qui seront rangées dans l'ordre correspondant à la fonction "afficherCibleDisponibles()"
     func ciblesDisponible(joueur : Joueur)->[Carte]
-    
+
     // UnitePouvantAttaquer : Carte -> [Carte]
     // Calcul les cartes que le joueur peut utiliser pour attaquer une carte adversaire donnée en paramètre et les place dans un tableau
     // carte : la carte ciblée
