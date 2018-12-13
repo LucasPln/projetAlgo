@@ -1,7 +1,7 @@
 import Foundation
 // Type ChampDeBataille est une collection de cartes avec leur position sur le champ de bataille
 //(0,0) correspond à F1
-public protocol ChampDeBattailleProtocol : Sequence {
+public protocol ChampDeBatailleProtocol : Sequence {
   associatedtype Carte: CarteProtocol
 	associatedtype ChampIteratorProtocol : IteratorProtocol
 	where ChampIteratorProtocol.Element == CarteProtocol
@@ -41,6 +41,11 @@ public protocol ChampDeBattailleProtocol : Sequence {
   //pre: la carte doit exister dans le champ de bataille
   //post: retour de la position Y de la carte
   func recupererPositionY(carte : Carte)->Int
+
+  // champDeBatailleVide : -> Bool
+  // Regarde si il y des cartes sur le champ de bataille
+  // Retourne true si la champ de bataille est rempli de nil
+  func champDeBatailleEstVide()->Bool
 
 
   // makeIterator : ChampBatailleProtocol -> MainIteratorProtocol

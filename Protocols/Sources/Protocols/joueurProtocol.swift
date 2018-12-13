@@ -73,8 +73,4 @@ public protocol JoueurProtocol{
     // Retourne la liste des cartes que le joueur peut utiliser, sur leur position respective
     func unitePouvantAttaquer(carte : Carte)->[Carte]
 
-    // champDeBatailleVide : -> Bool
-    // Regarde si il y des cartes sur le champ de bataille
-    // Retourne true si la champ de bataille est rempli de nil
-    func champDeBatailleEstVide()->Bool
 }
